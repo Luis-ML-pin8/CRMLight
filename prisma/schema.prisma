@@ -1,0 +1,106 @@
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id              String        @id @default(cuid())
+  name            String
+  email           String        @unique
+  avatar          String
+  isAdministrator Boolean       @default(false)
+  coordinator     Coordinator?
+  agent           Agent?
+  opportunitiesCreated Opportunity[] @relation("CreatedBy")
+  opportunitiesUpdated Opportunity[] @relation("UpdatedBy")
+}
+
+model Coordinator {
+  id      String  @id @default(cuid())
+  user    User    @relation(fields: [userId], references: [id])
+  userId  String  @unique
+  agents  Agent[]
+}
+
+model Agent {
+  id              String        @id @default(cuid())
+  name            String
+  skills          String
+  pastPerformance String
+  user            User          @relation(fields: [userId], references: [id])
+  userId          String        @unique
+  coordinator     Coordinator?  @relation(fields: [coordinatorId], references: [id])
+  coordinatorId   String?
+  accounts        Account[]
+  opportunities   Opportunity[]
+}
+
+model Account {
+  id          String        @id @default(cuid())
+  name        String
+  industry    String
+  country     String
+  value       Int
+  needs       String
+  agents      Agent[]
+  contacts    Contact[]
+  opportunities Opportunity[]
+}
+
+model Contact {
+  id        String   @id @default(cuid())
+  name      String
+  role      String
+  email     String
+  phone     String?
+  account   Account  @relation(fields: [accountId], references: [id])
+  accountId String
+}
+
+model Opportunity {
+  id             String      @id @default(cuid())
+  name           String
+  account        Account     @relation(fields: [accountId], references: [id])
+  accountId      String
+  agent          Agent?      @relation(fields: [agentId], references: [id])
+  agentId        String?
+  amount         Int
+  type           String // Catalog, Consulting, Project
+  phase          String // Detection, Contact, Definition, Offer
+  situation      String // Internal, Client, Won, Lost
+  status         String // In Progress, Won, Lost
+  conversionDate DateTime
+  createdBy      User        @relation("CreatedBy", fields: [createdById], references: [id])
+  createdById    String
+  createdAt      DateTime    @default(now())
+  updatedBy      User        @relation("UpdatedBy", fields: [updatedById], references: [id])
+  updatedById    String
+  updatedAt      DateTime    @updatedAt
+  activities     Activity[]
+}
+
+model Activity {
+  id             String      @id @default(cuid())
+  opportunity    Opportunity @relation(fields: [opportunityId], references: [id])
+  opportunityId  String
+  type           String
+  objective      String
+  result         String?
+  dueDate        DateTime
+  completionDate DateTime?
+}
+
+model Industry {
+  id   String @id @default(cuid())
+  name String @unique
+}
+
+model ActivityType {
+  id   String @id @default(cuid())
+  name String @unique
+}

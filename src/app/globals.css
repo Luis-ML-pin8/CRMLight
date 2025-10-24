@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 96.1%; /* #F5F5F5 */
+    --foreground: 224 71.4% 4.1%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 224 71.4% 4.1%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71.4% 4.1%;
+
+    --primary: 231 48% 48%; /* #3F51B5 */
+    --primary-foreground: 210 20% 98%;
+
+    --secondary: 215 20% 95%;
+    --secondary-foreground: 224 71.4% 4.1%;
+
+    --muted: 215 20% 95%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 231 48% 95%; /* Light blue accent */
+    --accent-foreground: 231 48% 30%; /* Darker blue for text on accent */
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 20% 98%;
+
+    --success: 142.1 70% 45%;
+    --success-foreground: 210 20% 98%;
+
+    --border: 215 20.2% 65.1%;
+    --input: 215 20.2% 65.1%;
+    --ring: 231 48% 48%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 224 71.4% 4.1%;
+    --foreground: 210 20% 98%;
+
+    --card: 224 71.4% 4.1%;
+    --card-foreground: 210 20% 98%;
+
+    --popover: 224 71.4% 4.1%;
+    --popover-foreground: 210 20% 98%;
+
+    --primary: 231 48% 48%;
+    --primary-foreground: 224 71.4% 4.1%;
+
+    --secondary: 215 28% 15%;
+    --secondary-foreground: 210 20% 98%;
+
+    --muted: 215 28% 15%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 231 48% 15%; /* Dark blue accent */
+    --accent-foreground: 210 20% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 20% 98%;
+    
+    --success: 142.1 70% 35%;
+    --success-foreground: 210 20% 98%;
+
+    --border: 215 27.9% 16.9%;
+    --input: 215 27.9% 16.9%;
+    --ring: 231 48% 48%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-headline;
+  }
+}
